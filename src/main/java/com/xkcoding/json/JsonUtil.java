@@ -60,6 +60,7 @@ public class JsonUtil {
 		try {
 			return clazz.newInstance();
 		} catch (Throwable e) {
+			// ignore error
 			return null;
 		}
 	}
