@@ -24,16 +24,16 @@ public class HutoolJsonJsonAdapter extends AbstractJsonAdapter {
 
 	public HutoolJsonJsonAdapter(JsonConfig jsonConfig) {
 		super(jsonConfig);
-		if (StringUtil.isNotEmpty(jsonConfig.getDateFormat())) {
-			hutoolJsonConfig = JSONConfig.create().setDateFormat(jsonConfig.getDateFormat());
-		} else {
-			hutoolJsonConfig = JSONConfig.create();
-		}
+		configureHutoolJson(jsonConfig);
 	}
 
 	@Override
 	public void setJsonConfig(JsonConfig jsonConfig) {
 		super.setJsonConfig(jsonConfig);
+		configureHutoolJson(jsonConfig);
+	}
+
+	private void configureHutoolJson(JsonConfig jsonConfig) {
 		if (StringUtil.isNotEmpty(jsonConfig.getDateFormat())) {
 			hutoolJsonConfig = JSONConfig.create().setDateFormat(jsonConfig.getDateFormat());
 		} else {

@@ -27,19 +27,16 @@ public class GsonJsonAdapter extends AbstractJsonAdapter {
 
 	public GsonJsonAdapter(JsonConfig jsonConfig) {
 		super(jsonConfig);
-		GsonBuilder gb = new GsonBuilder();
-		if (StringUtil.isEmpty(jsonConfig.getDateFormat())) {
-			gb.registerTypeAdapter(Date.class, new GsonDateSerializer()).setDateFormat(DateFormat.LONG);
-			gb.registerTypeAdapter(Date.class, new GsonDateDeserializer()).setDateFormat(DateFormat.LONG);
-		} else {
-			gb.setDateFormat(jsonConfig.getDateFormat());
-		}
-		gson = gb.create();
+		configureGson(jsonConfig);
 	}
 
 	@Override
 	public void setJsonConfig(JsonConfig jsonConfig) {
 		super.setJsonConfig(jsonConfig);
+		configureGson(jsonConfig);
+	}
+
+	private void configureGson(JsonConfig jsonConfig) {
 		GsonBuilder gb = new GsonBuilder();
 		if (StringUtil.isEmpty(jsonConfig.getDateFormat())) {
 			gb.registerTypeAdapter(Date.class, new GsonDateSerializer()).setDateFormat(DateFormat.LONG);

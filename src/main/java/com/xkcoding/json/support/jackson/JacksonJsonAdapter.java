@@ -27,14 +27,16 @@ public class JacksonJsonAdapter extends AbstractJsonAdapter {
 	public JacksonJsonAdapter(JsonConfig jsonConfig) {
 		super(jsonConfig);
 		this.objectMapper = new ObjectMapper();
-		if (StringUtil.isNotEmpty(jsonConfig.getDateFormat())) {
-			this.objectMapper.setDateFormat(new SimpleDateFormat(jsonConfig.getDateFormat()));
-		}
+		configureJackson(jsonConfig);
 	}
 
 	@Override
 	public void setJsonConfig(JsonConfig jsonConfig) {
 		super.setJsonConfig(jsonConfig);
+		configureJackson(jsonConfig);
+	}
+
+	private void configureJackson(JsonConfig jsonConfig) {
 		if (StringUtil.isNotEmpty(jsonConfig.getDateFormat())) {
 			this.objectMapper.setDateFormat(new SimpleDateFormat(jsonConfig.getDateFormat()));
 		}
