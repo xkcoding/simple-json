@@ -96,7 +96,7 @@ public class JsonUtil {
 	 */
 	public <T> T toBean(String jsonStr, Class<T> clazz) {
 		checkJsonAdapterNotNull(jsonAdapter);
-		return jsonAdapter.deserialize(jsonStr,clazz);
+		return jsonAdapter.deserialize(jsonStr, clazz);
 	}
 
 }
