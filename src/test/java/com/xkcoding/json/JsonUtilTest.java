@@ -104,6 +104,20 @@ public class JsonUtilTest {
 		System.out.println(map);
 	}
 
+	@Test
+	public void testToSimpleMap() {
+
+		String jsonString = JsonUtil.toJsonString(serializeTest);
+		System.out.println(jsonString);
+
+		SimpleMap simpleMap = JsonUtil.parse(jsonString);
+		System.out.println(simpleMap);
+		System.out.println(simpleMap.getInteger("age"));
+		System.out.println(simpleMap.getIntValue("age"));
+		System.out.println(simpleMap.getString("uuid"));
+		System.out.println(simpleMap.getString("birth"));
+	}
+
 	@Data
 	@NoArgsConstructor
 	@AllArgsConstructor
