@@ -100,4 +100,14 @@ public class JsonUtil {
 		return jsonAdapter.deserialize(jsonStr, clazz);
 	}
 
+	/**
+	 * 反序列化为 {@link SimpleMap}
+	 *
+	 * @param jsonStr json 字符串
+	 * @return SimpleMap
+	 */
+	public SimpleMap parse(String jsonStr) {
+		return toBean(jsonStr, SimpleMap.class);
+	}
+
 }
