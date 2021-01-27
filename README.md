@@ -15,7 +15,7 @@
 <dependency>
   <groupId>com.xkcoding.json</groupId>
   <artifactId>simple-json</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 </dependency>
 ```
 
@@ -26,16 +26,19 @@
 
 ```java
 JsonUtil.setConfig(JsonConfig.builder().dateFormat("yyyy-MM-dd HH:mm:ss").build());
-String jsonStr = JsonUtil.toJsonString(obj);
-System.out.println(jsonStr);
+  String jsonStr=JsonUtil.toJsonString(obj);
+  System.out.println(jsonStr);
 
-User user = JsonUtil.toBean(jsonStr, User.class);
-System.out.println(user);
+  User user=JsonUtil.toBean(jsonStr,User.class);
+  System.out.println(user);
 
-Map map = JsonUtil.toBean(jsonStr, Map.class);
-System.out.println(map);
+  Map map=JsonUtil.toBean(jsonStr,Map.class);
+  System.out.println(map);
+
+  Kv kv=JsonUtil.parseKv(jsonStr);
 ```
 
 ## TODO
 
 - [x] ~~抽取不同实现的 JSON 序列化/反序列配置~~
+- [x] ~~优化KV体验~~(感谢[@亚东](https://github.com/zhangyd-c)的 [PR#1](https://github.com/xkcoding/simple-json/pull/1))
