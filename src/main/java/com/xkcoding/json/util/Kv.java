@@ -1,6 +1,4 @@
-package com.xkcoding.json;
-
-import com.xkcoding.json.util.ObjectUtil;
+package com.xkcoding.json.util;
 
 import java.util.HashMap;
 
@@ -10,7 +8,12 @@ import java.util.HashMap;
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @date 2021-01-27 11:50
  */
-public class SimpleMap extends HashMap<String, Object> {
+public class Kv extends HashMap<String, Object> {
+
+	public Object get(String key, Object defaultValue) {
+		Object value = super.get(key);
+		return (value != null) ? value : defaultValue;
+	}
 
 	public String getString(Object key) {
 		Object value = super.get(key);

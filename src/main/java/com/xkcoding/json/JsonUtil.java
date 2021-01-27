@@ -9,6 +9,7 @@ import com.xkcoding.json.support.gson.GsonJsonAdapter;
 import com.xkcoding.json.support.hutool.HutoolJsonJsonAdapter;
 import com.xkcoding.json.support.jackson.JacksonJsonAdapter;
 import com.xkcoding.json.util.ClassUtil;
+import com.xkcoding.json.util.Kv;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -101,13 +102,13 @@ public class JsonUtil {
 	}
 
 	/**
-	 * 反序列化为 {@link SimpleMap}
+	 * 反序列化为 {@link Kv}
 	 *
 	 * @param jsonStr json 字符串
 	 * @return SimpleMap
 	 */
-	public SimpleMap parse(String jsonStr) {
-		return toBean(jsonStr, SimpleMap.class);
+	public Kv parseKv(String jsonStr) {
+		return toBean(jsonStr, Kv.class);
 	}
 
 }

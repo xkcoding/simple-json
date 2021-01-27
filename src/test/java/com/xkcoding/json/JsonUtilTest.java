@@ -5,6 +5,7 @@ import com.xkcoding.json.support.fastjson.FastJsonJsonAdapter;
 import com.xkcoding.json.support.gson.GsonJsonAdapter;
 import com.xkcoding.json.support.hutool.HutoolJsonJsonAdapter;
 import com.xkcoding.json.support.jackson.JacksonJsonAdapter;
+import com.xkcoding.json.util.Kv;
 import com.xkcoding.json.util.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -110,12 +111,12 @@ public class JsonUtilTest {
 		String jsonString = JsonUtil.toJsonString(serializeTest);
 		System.out.println(jsonString);
 
-		SimpleMap simpleMap = JsonUtil.parse(jsonString);
-		System.out.println(simpleMap);
-		System.out.println(simpleMap.getInteger("age"));
-		System.out.println(simpleMap.getIntValue("age"));
-		System.out.println(simpleMap.getString("uuid"));
-		System.out.println(simpleMap.getString("birth"));
+		Kv kv = JsonUtil.parseKv(jsonString);
+		System.out.println(kv);
+		System.out.println(kv.getInteger("age"));
+		System.out.println(kv.getIntValue("age"));
+		System.out.println(kv.getString("uuid"));
+		System.out.println(kv.getString("birth"));
 	}
 
 	@Data
