@@ -15,7 +15,7 @@
 <dependency>
   <groupId>com.xkcoding.json</groupId>
   <artifactId>simple-json</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
 </dependency>
 ```
 
@@ -42,3 +42,4 @@ JsonUtil.setConfig(JsonConfig.builder().dateFormat("yyyy-MM-dd HH:mm:ss").build(
 
 - [x] ~~抽取不同实现的 JSON 序列化/反序列配置~~
 - [x] ~~优化KV体验~~(感谢[@亚东](https://github.com/zhangyd-c)的 [PR#1](https://github.com/xkcoding/simple-json/pull/1))
+- [x] ~~支持 List 转化~~(感谢 [@青木](https://github.com/StringKe) 的 [PR#2](https://github.com/xkcoding/simple-json/pull/2))
