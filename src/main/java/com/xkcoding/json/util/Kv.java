@@ -1,5 +1,6 @@
 package com.xkcoding.json.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -13,6 +14,11 @@ public class Kv extends HashMap<String, Object> {
 	public Object get(String key, Object defaultValue) {
 		Object value = super.get(key);
 		return (value != null) ? value : defaultValue;
+	}
+
+	public <T> ArrayList<T> getArrayList(Object key) {
+		Object value = super.get(key);
+		return ArrayUtil.toList(value);
 	}
 
 	public String getString(Object key) {
