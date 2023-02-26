@@ -12,6 +12,8 @@ import com.xkcoding.json.util.ClassUtil;
 import com.xkcoding.json.util.Kv;
 import lombok.experimental.UtilityClass;
 
+import java.util.List;
+
 /**
  * <p>
  * Json工具类
@@ -99,6 +101,18 @@ public class JsonUtil {
 	public <T> T toBean(String jsonStr, Class<T> clazz) {
 		checkJsonAdapterNotNull(jsonAdapter);
 		return jsonAdapter.deserialize(jsonStr, clazz);
+	}
+
+	/**
+	 * 反序列化为集合
+	 *
+	 * @param jsonStr json 字符串
+	 * @param clazz   对象类型
+	 * @return 对象
+	 */
+	public <T> List<T> toList(String jsonStr, Class<T> clazz) {
+		checkJsonAdapterNotNull(jsonAdapter);
+		return jsonAdapter.deserializeList(jsonStr, clazz);
 	}
 
 	/**

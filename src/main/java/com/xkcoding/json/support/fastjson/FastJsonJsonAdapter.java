@@ -1,11 +1,14 @@
 package com.xkcoding.json.support.fastjson;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.xkcoding.json.config.JsonConfig;
 import com.xkcoding.json.exception.SimpleJsonException;
 import com.xkcoding.json.support.AbstractJsonAdapter;
 import com.xkcoding.json.util.StringUtil;
+
+import java.util.List;
 
 /**
  * <p>
@@ -52,5 +55,19 @@ public class FastJsonJsonAdapter extends AbstractJsonAdapter {
 	@Override
 	public <T> T deserialize(String jsonStr, Class<T> clazz) throws SimpleJsonException {
 		return JSON.parseObject(jsonStr, clazz);
+	}
+
+	/**
+	 * 反序列化为集合
+	 *
+	 * @param <T>     类泛型
+	 * @param jsonStr json 字符串
+	 * @param clazz   对象类型
+	 * @return 对象集合
+	 * @throws SimpleJsonException 自定义异常
+	 */
+	@Override
+	public <T> List<T> deserializeList(String jsonStr, Class<T> clazz) throws SimpleJsonException {
+		return JSONArray.parseArray(jsonStr, clazz);
 	}
 }

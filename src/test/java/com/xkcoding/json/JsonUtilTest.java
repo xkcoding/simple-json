@@ -14,9 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * <p>
@@ -119,6 +117,82 @@ public class JsonUtilTest {
 		System.out.println(kv.getString("birth"));
 	}
 
+	@Test
+	public void testSerializeToKv() {
+		Group serializeGroupTest = new Group(UUID.randomUUID().toString(), "序列化测试", serializeTest, Collections.singletonList(serializeTest));
+
+		String jsonString = JsonUtil.toJsonString(serializeGroupTest);
+		System.out.println(jsonString);
+
+		Kv kv = JsonUtil.parseKv(jsonString);
+		System.out.println(kv);
+		System.out.println(kv.getKv("user"));
+		System.out.println(kv.getListKv("users"));
+		System.out.println(kv.getString("uuid"));
+		System.out.println(kv.getString("name"));
+	}
+
+	@Test
+	public void testDeserializeToBean() {
+		String jsonString = "{\"uuid\":\"6f173244-26f7-4fb1-aed3-fec4ebf635a4\",\"name\":\"序列化测试\",\"user\":{\"uuid\":\"17260395-b043-4cc0-8cfb-b81e525ff08c\",\"name\":\"序列化测试\",\"age\":20,\"birth\":1677422867328},\"users\":[{\"uuid\":\"17260395-b043-4cc0-8cfb-b81e525ff08c\",\"name\":\"序列化测试\",\"age\":20,\"birth\":1677422867328}]}";
+		System.out.println(jsonString);
+
+		Group group = JsonUtil.toBean(jsonString, Group.class);
+		System.out.println(group);
+		System.out.println(group.getUser());
+		System.out.println(group.getUsers());
+		System.out.println(group.getUuid());
+		System.out.println(group.getName());
+	}
+
+	@Test
+	public void testFastJsonDeserializeToListBean() {
+		JsonUtil.setJsonAdapter(new FastJsonJsonAdapter());
+		JsonUtil.setConfig(jsonConfig);
+
+		String jsonString = "[{\"uuid\":\"6f173244-26f7-4fb1-aed3-fec4ebf635a4\",\"name\":\"序列化测试\",\"user\":{\"uuid\":\"17260395-b043-4cc0-8cfb-b81e525ff08c\",\"name\":\"序列化测试\",\"age\":20,\"birth\":1677422867328},\"users\":[{\"uuid\":\"17260395-b043-4cc0-8cfb-b81e525ff08c\",\"name\":\"序列化测试\",\"age\":20,\"birth\":1677422867328}]}]";
+		System.out.println(jsonString);
+
+		List<Group> group = JsonUtil.toList(jsonString, Group.class);
+		System.out.println(group);
+	}
+
+	@Test
+	public void testGsonDeserializeToListBean() {
+		JsonUtil.setJsonAdapter(new GsonJsonAdapter());
+		JsonUtil.setConfig(jsonConfig);
+
+		String jsonString = "[{\"uuid\":\"6f173244-26f7-4fb1-aed3-fec4ebf635a4\",\"name\":\"序列化测试\",\"user\":{\"uuid\":\"17260395-b043-4cc0-8cfb-b81e525ff08c\",\"name\":\"序列化测试\",\"age\":20,\"birth\":1677422867328},\"users\":[{\"uuid\":\"17260395-b043-4cc0-8cfb-b81e525ff08c\",\"name\":\"序列化测试\",\"age\":20,\"birth\":1677422867328}]}]";
+		System.out.println(jsonString);
+
+		List<Group> group = JsonUtil.toList(jsonString, Group.class);
+		System.out.println(group);
+	}
+
+	@Test
+	public void testHutoolDeserializeToListBean() {
+		JsonUtil.setJsonAdapter(new HutoolJsonJsonAdapter());
+		JsonUtil.setConfig(jsonConfig);
+
+		String jsonString = "[{\"uuid\":\"6f173244-26f7-4fb1-aed3-fec4ebf635a4\",\"name\":\"序列化测试\",\"user\":{\"uuid\":\"17260395-b043-4cc0-8cfb-b81e525ff08c\",\"name\":\"序列化测试\",\"age\":20,\"birth\":1677422867328},\"users\":[{\"uuid\":\"17260395-b043-4cc0-8cfb-b81e525ff08c\",\"name\":\"序列化测试\",\"age\":20,\"birth\":1677422867328}]}]";
+		System.out.println(jsonString);
+
+		List<Group> group = JsonUtil.toList(jsonString, Group.class);
+		System.out.println(group);
+	}
+
+	@Test
+	public void testJacksonDeserializeToListBean() {
+		JsonUtil.setJsonAdapter(new JacksonJsonAdapter());
+		JsonUtil.setConfig(jsonConfig);
+
+		String jsonString = "[{\"uuid\":\"6f173244-26f7-4fb1-aed3-fec4ebf635a4\",\"name\":\"序列化测试\",\"user\":{\"uuid\":\"17260395-b043-4cc0-8cfb-b81e525ff08c\",\"name\":\"序列化测试\",\"age\":20,\"birth\":1677422867328},\"users\":[{\"uuid\":\"17260395-b043-4cc0-8cfb-b81e525ff08c\",\"name\":\"序列化测试\",\"age\":20,\"birth\":1677422867328}]}]";
+		System.out.println(jsonString);
+
+		List<Group> group = JsonUtil.toList(jsonString, Group.class);
+		System.out.println(group);
+	}
+
 	@Data
 	@NoArgsConstructor
 	@AllArgsConstructor
@@ -127,5 +201,15 @@ public class JsonUtilTest {
 		private String name;
 		private Integer age;
 		private Date birth;
+	}
+
+	@Data
+	@NoArgsConstructor
+	@AllArgsConstructor
+	static class Group implements Serializable {
+		private String uuid;
+		private String name;
+		private User user;
+		private List<User> users;
 	}
 }

@@ -2,6 +2,8 @@ package com.xkcoding.json.support;
 
 import com.xkcoding.json.exception.SimpleJsonException;
 
+import java.util.List;
+
 /**
  * <p>
  * 序列化反序列化操作
@@ -30,4 +32,15 @@ public interface JsonAdapter {
 	 * @throws SimpleJsonException 自定义异常
 	 */
 	<T> T deserialize(String jsonStr, Class<T> clazz) throws SimpleJsonException;
+
+	/**
+	 * 反序列化为集合
+	 *
+	 * @param <T>     类泛型
+	 * @param jsonStr json 字符串
+	 * @param clazz   对象类型
+	 * @return 对象集合
+	 * @throws SimpleJsonException 自定义异常
+	 */
+	<T> List<T> deserializeList(String jsonStr, Class<T> clazz) throws SimpleJsonException;
 }
