@@ -1,6 +1,7 @@
 package com.xkcoding.json.support.gson;
 
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import com.xkcoding.json.config.JsonConfig;
 import com.xkcoding.json.exception.SimpleJsonException;
 import com.xkcoding.json.support.AbstractJsonAdapter;
@@ -8,7 +9,9 @@ import com.xkcoding.json.util.StringUtil;
 
 import java.lang.reflect.Type;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -70,6 +73,21 @@ public class GsonJsonAdapter extends AbstractJsonAdapter {
 	@Override
 	public <T> T deserialize(String jsonStr, Class<T> clazz) throws SimpleJsonException {
 		return gson.fromJson(jsonStr, clazz);
+	}
+
+	/**
+	 * 反序列化为集合
+	 *
+	 * @param <T>     类泛型
+	 * @param jsonStr json 字符串
+	 * @param clazz   对象类型
+	 * @return 对象集合
+	 * @throws SimpleJsonException 自定义异常
+	 */
+	@Override
+	public <T> List<T> deserializeList(String jsonStr, Class<T> clazz) throws SimpleJsonException {
+		Type listType = new TypeToken<ArrayList<T>>(){}.getType();
+		return new Gson().fromJson(jsonStr, listType);
 	}
 
 	private static class GsonDateSerializer implements JsonSerializer<Date> {

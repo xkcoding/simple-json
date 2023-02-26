@@ -7,6 +7,8 @@ import com.xkcoding.json.exception.SimpleJsonException;
 import com.xkcoding.json.support.AbstractJsonAdapter;
 import com.xkcoding.json.util.StringUtil;
 
+import java.util.List;
+
 /**
  * <p>
  * Hutool JSON 序列化实现，时间格式化可以通过 {@link JsonConfig} 设置，默认为时间戳类型
@@ -65,4 +67,18 @@ public class HutoolJsonJsonAdapter extends AbstractJsonAdapter {
 	public <T> T deserialize(String jsonStr, Class<T> clazz) throws SimpleJsonException {
 		return JSONUtil.parse(jsonStr, hutoolJsonConfig).toBean(clazz);
 	}
+
+	/**
+	 * 反序列化为集合
+	 *
+	 * @param <T>     类泛型
+	 * @param jsonStr json 字符串
+	 * @param clazz   对象类型
+	 * @return 对象集合
+	 * @throws SimpleJsonException 自定义异常
+	 */
+    @Override
+    public <T> List<T> deserializeList(String jsonStr, Class<T> clazz) throws SimpleJsonException {
+        return JSONUtil.toList(jsonStr, clazz);
+    }
 }

@@ -1,6 +1,7 @@
 package com.xkcoding.json.support.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xkcoding.json.config.JsonConfig;
 import com.xkcoding.json.exception.SimpleJsonException;
@@ -8,6 +9,7 @@ import com.xkcoding.json.support.AbstractJsonAdapter;
 import com.xkcoding.json.util.StringUtil;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * <p>
@@ -70,6 +72,25 @@ public class JacksonJsonAdapter extends AbstractJsonAdapter {
 	public <T> T deserialize(String jsonStr, Class<T> clazz) throws SimpleJsonException {
 		try {
 			return objectMapper.readValue(jsonStr, clazz);
+		} catch (JsonProcessingException e) {
+			throw new SimpleJsonException(e);
+		}
+	}
+
+	/**
+	 * 反序列化为集合
+	 *
+	 * @param <T>     类泛型
+	 * @param jsonStr json 字符串
+	 * @param clazz   对象类型
+	 * @return 对象集合
+	 * @throws SimpleJsonException 自定义异常
+	 */
+    @Override
+    public <T> List<T> deserializeList(String jsonStr, Class<T> clazz) throws SimpleJsonException {
+		JavaType javaType = objectMapper.getTypeFactory().constructCollectionType(List.class, clazz);
+		try {
+			return objectMapper.readValue(jsonStr, javaType);
 		} catch (JsonProcessingException e) {
 			throw new SimpleJsonException(e);
 		}
