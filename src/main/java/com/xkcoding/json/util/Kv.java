@@ -1,7 +1,11 @@
 package com.xkcoding.json.util;
 
+import com.xkcoding.json.exception.SimpleJsonException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 继承自 HashMap，提供一些基础的类型转换，方便使用
@@ -84,5 +88,37 @@ public class Kv extends HashMap<String, Object> {
 	public double getDoubleValue(String key) {
 		Double value = getDouble(key);
 		return null == value ? 0 : value;
+	}
+
+	public Kv getKv(String key) {
+		Object value = super.get(key);
+		if (null == value) {
+			return null;
+		}
+		if (value instanceof Map) {
+			Kv kv = new Kv();
+			kv.putAll((Map) value);
+			return kv;
+		}
+		throw new SimpleJsonException(value.getClass().getName() + " cannot be cast to com.xkcoding.json.util.Kv");
+	}
+
+	public List<Kv> getListKv(String key) {
+		List<Object> values = getArrayList(key);
+		if (null == values) {
+			return null;
+		}
+		List<Kv> result = new ArrayList<>();
+		Kv item = null;
+		for (Object o : values) {
+			if (o instanceof Map) {
+				item = new Kv();
+				item.putAll((Map) o);
+				result.add(item);
+				continue;
+			}
+			throw new SimpleJsonException(o.getClass().getName() + " cannot be cast to com.xkcoding.json.util.Kv");
+		}
+		return result;
 	}
 }
